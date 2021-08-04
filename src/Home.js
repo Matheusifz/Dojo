@@ -2,32 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import ReactLoading from "react-loading";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
-  const [blogs, setBlogs] = useState(null);
-  const [isPending, setIsPending] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    setTimeout(() => {
-      fetch("http://localhost:8000/blogs")
-        .then((res) => {
-          if (!res.ok) {
-            throw Error("could not fetch data for that resource");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          setBlogs(data);
-          setIsPending(false);
-          setError(null);
-        })
-        .catch((err) => {
-          setIsPending(false);
-          setError(err.message);
-        });
-    }, 1000);
-  }, []);
+  const { data, isPending, error } = useFetch("http://localhost:8000/blogs");
 
   return (
     <div className="Home">
@@ -36,11 +14,11 @@ const Home = () => {
         <ReactLoading
           type="spinningBubbles"
           color="#f1356d"
-          height={433}
+          height={333}
           width={480}
         />
       )}
-      {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
+      {data && <BlogList blogs={data} title="All Blogs!" />}
     </div>
   );
 };
