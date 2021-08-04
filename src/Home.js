@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import ReactLoading from "react-loading";
 import BlogList from "./BlogList";
 
 const Home = () => {
@@ -31,7 +32,14 @@ const Home = () => {
   return (
     <div className="Home">
       {error && <div> {error} </div>}
-      {isPending && <div>Loading...</div>}
+      {isPending && (
+        <ReactLoading
+          type="spinningBubbles"
+          color="#f1356d"
+          height={433}
+          width={480}
+        />
+      )}
       {blogs && <BlogList blogs={blogs} title="All Blogs!" />}
     </div>
   );
