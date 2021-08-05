@@ -5,14 +5,14 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("Mario");
-  const [isPending, setIsPending] = useState("false");
+  const [isPending, setIsPending] = useState("true");
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { title, body, author };
 
-    setIsPending(true);
+    setIsPending(false);
 
     fetch("http://localhost:8000/blogs", {
       method: "POST",
